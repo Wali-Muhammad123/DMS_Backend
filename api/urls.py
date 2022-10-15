@@ -1,5 +1,7 @@
 from django.urls import path
-from . import views
+from .views import FamilyView,OccupentView,CampView
 urlpatterns = [
-    path('',views.api_initial),
+    path('family/',FamilyView.as_view()),
+    path('occupent/',OccupentView.as_view()),
+    path('camps/',CampView.as_view())
 ]

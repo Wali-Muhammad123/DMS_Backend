@@ -1,74 +1,74 @@
 from django.shortcuts import render
-import json
-from django.http import JsonResponse
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
-from registration_model.serializers import OccupantModelSerializer,FamilyModelSerializer,CampModelSerializer
-from registration_model.models import OccupantModel,FamilyModel,CampModel
-class OccupentView(APIView):
-    def get(self,request):
-        occupent=OccupantModel.objects.all()
-        serializer=OccupantModelSerializer(occupent,many=True)
-        return Response(serializer.data,status=200)
-    def post(self,request):
-        serializer=OccupantModelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=201)
-        return Response(serializer.errors,status=400)
-    def put(self,request,pk):
-        occupent=OccupantModel.objects.get(pk=pk)
-        serializer=OccupantModelSerializer(occupent,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=200)
-        return Response(serializer.errors,status=400)
-    def delete(self,request,pk):
-        occupent=OccupantModel.objects.get(pk=pk)
-        occupent.delete()
-        return Response("Occupent deleted successfully")
+from .serializers import Food_Serializer,Medicines_Serializer,Other_amenities_Serializer
+from .models import Food,medicines,other_amenities
 
-class FamilyView(APIView):
+# Create your views here.
+class Food_View(APIView):
     def get(self,request):
-        family=FamilyModel.objects.all()
-        serializer=FamilyModelSerializer(family,many=True)
+        food=Food.objects.all()
+        serializer=Food_Serializer(food,many=True)
         return Response(serializer.data,status=200)
     def post(self,request):
-        serializer=FamilyModelSerializer(data=request.data)
+        serializer=Food_Serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=201)
         return Response(serializer.errors,status=400)
     def put(self,request,pk):
-        family=FamilyModel.objects.get(pk=pk)
-        serializer=FamilyModelSerializer(family,data=request.data)
+        food=Food.objects.get(pk=pk)
+        serializer=Food_Serializer(food,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=200)
         return Response(serializer.errors,status=400)
     def delete(self,request,pk):
-        family=FamilyModel.objects.get(pk=pk)
-        family.delete()
-        return Response("Family deleted successfully")
-class CampView(APIView):
+        food=Food.objects.get(pk=pk)
+        food.delete()
+        return Response("Food deleted successfully")
+class Medicines_View(APIView):
     def get(self,request):
-        camp=CampModel.objects.all()
-        serializer=CampModelSerializer(camp,many=True)
+        medicines=medicines.objects.all()
+        serializer=Medicines_Serializer(medicines,many=True)
         return Response(serializer.data,status=200)
     def post(self,request):
-        serializer=CampModelSerializer(data=request.data)
+        serializer=Medicines_Serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=201)
         return Response(serializer.errors,status=400)
     def put(self,request,pk):
-        camp=CampModel.objects.get(pk=pk)
-        serializer=CampModelSerializer(camp,data=request.data)
+        medicines=medicines.objects.get(pk=pk)
+        serializer=Medicines_Serializer(medicines,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=200)
         return Response(serializer.errors,status=400)
     def delete(self,request,pk):
-        camp=CampModel.objects.get(pk=pk)
-        camp.delete()
-        return Response("Camp deleted successfully")
+        medicines=medicines.objects.get(pk=pk)
+        medicines.delete()
+        return Response("Medicines deleted successfully")
+class Other_amenities_View(APIView):
+    def get(self,request):
+        other_amenities=other_amenities.objects.all()
+        serializer=Other_amenities_Serializer(other_amenities,many=True)
+        return Response(serializer.data,status=200)
+    def post(self,request):
+        serializer=Other_amenities_Serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=201)
+        return Response(serializer.errors,status=400)
+    def put(self,request,pk):
+        other_amenities=other_amenities.objects.get(pk=pk)
+        serializer=Other_amenities_Serializer(other_amenities,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=200)
+        return Response(serializer.errors,status=400)
+    def delete(self,request,pk):
+        other_amenities=other_amenities.objects.get(pk=pk)
+        other_amenities.delete()
+        return Response("Other amenities deleted successfully")
+

@@ -2,15 +2,31 @@ from django.db import models
 
 # Create your models here.
 # This is the family-data model
-class Family_data(models.Model):
-    family_id=models.AutoField(primary_key=True)
-    family_head_name=models.CharField(max_length=50)
-    number_of_members=models.IntegerField()
-    number_of_minors=models.IntegerField()
-    number_of_seniors=models.IntegerField()
-    number_of_women=models.IntegerField()
-    presence_of_pregnant=models.IntegerField(choices=((0,'No'),(1,'Yes')))
-    presence_of_disabled=models.IntegerField(choices=((0,'No'),(1,'Yes')))
-    class Meta:
-        abstract=True
+
 # This is the family-identification model
+class CampModel(models.Model):
+    camp_name = models.CharField(max_length=100)
+    address = models.TextField()
+class FamilyModel(models.Model):
+    family_head_name = models.CharField(max_length=30)
+    phone_no = models.CharField(max_length=14)
+    camp = models.ForeignKey(CampModel, on_delete=models.CASCADE)
+    def numbers_of_members(self):
+        return len(self.family_set)
+    
+    def numbers_of_minors(self):
+        return len(self.family_set.filter(age__lt=15))
+    
+    def numbers_of_women(self):
+        return len(self.family_set.filter(gender="female", age__gt=35))
+class OccupantModel(models.Model):
+    name = models.CharField(max_length=14)
+    age = models.IntegerField()
+    GENDER_CHOICE = (('M', "male"), ("F", "female"))
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICE)
+    #CONDITION_CHOICE = (("pregnant", "pregnant"))
+    #condition = models.CharField(choice=CONDITION_CHOICE)
+    disabled = models.BooleanField(default=False)
+    phone_no = models.CharField(max_length=14)
+    family = models.ForeignKey(FamilyModel, on_delete=models.CASCADE)
+
