@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import OccupantModel,FamilyModel,CampModel
+from .models import OccupantModel,FamilyModel,CampModel,private_request
 class OccupantModelSerializer(serializers.ModelSerializer):
     class Meta:
         model=OccupantModel
@@ -13,3 +13,7 @@ class CampModelSerializer(serializers.Serializer):
     class Meta:
         model=CampModel
         fields=['camp_name','address']
+class private_requestSerializer(serializers.Serializer):
+    class Meta:
+        model=private_request
+        fields=['phone_no','first_name','requestt']

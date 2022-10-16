@@ -29,4 +29,10 @@ class OccupantModel(models.Model):
     disabled = models.BooleanField(default=False)
     phone_no = models.CharField(max_length=14)
     family = models.ForeignKey(FamilyModel, on_delete=models.CASCADE)
+class private_request(models.Model):
+    phone_no=models.CharField(max_length=14)
+    first_name=models.CharField(max_length=14)
+    requestt=models.CharField(max_length=200)
+    def __str__(self):
+        return self.requestt
 

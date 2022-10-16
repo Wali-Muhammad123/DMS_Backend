@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'api',
     'registration_model',
     'rest_framework',
-    'ameneties_api'
+    'ameneties_api',
+    'Distribution'
 ]
 
 MIDDLEWARE = [
